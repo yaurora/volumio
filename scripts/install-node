@@ -20,7 +20,7 @@ case $(dpkg --print-architecture) in
 esac
 
 
-curl -Lo /tmp/nodejs.tar.xz "https://nodejs.org/download/release/v$NODE_VERSION/node-v$NODE_VERSION-linux-${PLAT}.tar.xz"
+curl -Lo /tmp/nodejs.tar.xz "https://registry.npmmirror.com/-/binary/node/latest-v8.x/node-v$NODE_VERSION-linux-${PLAT}.tar.xz"
 #sha256sum /tmp/nodejs.tar.xz
 #echo "$NODE_SHA256 /tmp/nodejs.tar.xz" | sha256sum --check --status
 mkdir -p /opt/node
