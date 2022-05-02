@@ -1,22 +1,18 @@
 FROM docker.io/library/debian:bullseye as base
 
 ADD scripts/cleanup /usr/bin
-
 RUN apt update && \
-    apt install -y --no-install-recommends curl gnupg ca-certificates xz-utils && \
-    curl http://apt.mopidy.com/mopidy.gpg | apt-key add - && \
+    apt install -y --no-install-recommends wget curl gnupg ca-certificates xz-utils && \
+    mkdir -p /usr/local/share/keyrings && \
     cleanup
-
+    
+ADD https://apt.mopidy.com/mopidy.gpg /usr/local/share/keyrings/mopidy-archive-keyring.gpg
 ADD https://apt.mopidy.com/buster.list /etc/apt/sources.list.d/mopidy.list
 
 ENV NODE_VERSION="8.17.0"
-
 ADD scripts/install-node /tmp
-
 RUN /tmp/install-node
-
 ENV PATH=/opt/node/bin:$PATH
-
 
 
 FROM base as builder
